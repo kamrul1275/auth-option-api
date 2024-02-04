@@ -8,6 +8,9 @@
             <h4>User Login</h4>
 
            
+{{ token.getToken }}
+
+
 
 
     <form @submit.prevent="handleSubmite()">
@@ -22,7 +25,7 @@
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input type="password" v-model="user.password" class="form-control" id="password">
-       
+        <span v-if="errors.password" class="text-red-500">{{ errors.password[0] }}</span>
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
@@ -43,7 +46,7 @@
 </template>
 
 <script setup>
-import axios from "axios";
+// import axios from "axios";
 // export default {
 
 
@@ -103,18 +106,21 @@ const user = reactive({
   password: "",
 });
 
-const errors = ref("");
+const errors = ref([]);
 
 const handleSubmite = async () => {
   try {
+
     await auth.login(user);
 
-    alert("successfully login");
+    
     return navigateTo("/dashboard");
-    //console.log(auth.login);
-  }catch{
-      console.error();
-    };
+    //console.log(auth.login);;
+  }catch(error){
+    //  console.log(error.data.errors);
+
+   errors.value =error.data.errors;
+  };
 };
 
 

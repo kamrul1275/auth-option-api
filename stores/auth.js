@@ -27,11 +27,12 @@ export const useAuthStore = defineStore('auth', {
           method: 'POST',
           body: { ...userData },
         });
-        token.setToken(data.authorization.token);
-        this.user = data.user;
        
-      
-alert("successfully login");
+        // this.user = data.user;
+       
+      console.log("Auth_Store:",data.authorization.token);
+      //token.setToken(data.authorization.token);
+      alert("successfully login");
 
         return navigateTo("/dashboard");
       } catch (error) {
