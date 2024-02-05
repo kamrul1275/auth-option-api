@@ -8,7 +8,9 @@ export const useAuthStore = defineStore('auth', {
 
   }),
   // user save
-
+  persist: {
+    paths: ['user'],
+  },
 
   getters: {
     getUser: (state) => state.user,
@@ -28,11 +30,11 @@ export const useAuthStore = defineStore('auth', {
           body: { ...userData },
         });
        
-        // this.user = data.user;
+        this.user = data.user;
        
-      console.log("Auth_Store:",data.authorization.token);
-      //token.setToken(data.authorization.token);
-      alert("successfully login");
+      //console.log("Auth_Store:",data.authorization.token);
+      token.setToken(data.authorization.token);
+      alert("User successfully login");
 
         return navigateTo("/dashboard");
       } catch (error) {
